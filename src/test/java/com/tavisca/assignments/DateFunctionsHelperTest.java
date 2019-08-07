@@ -15,8 +15,21 @@ public class DateFunctionsHelperTest {
     @Test
     public void getValidTimeInStringTest(){
         assertEquals("23:05:55", DateFunctionsHelper.getValidTimeInString(22, 65, 55));
-        assertEquals("00:00:00", DateFunctionsHelper.getValidTimeInString(23, 59, 60));
+        assertEquals("00:03:00", DateFunctionsHelper.getValidTimeInString(23, 62, 60));
         assertEquals("23:59:05", DateFunctionsHelper.getValidTimeInString(23, 58, 65));
     }
 
+    @Test
+    public void getLexiSmallestTimeTest(){
+        assertEquals("12:00:00", DateFunctionsHelper.getLexiSmallestTime(12,00,00,12,00,50));
+        assertEquals("11:59:30", DateFunctionsHelper.getLexiSmallestTime(11,59,30,12,00,50));
+    }
+
+    @Test
+    public void getCommonTimeSpanTest(){
+        assertArrayEquals(new String[]{"11:10:12","11:15:10"}, DateFunctionsHelper.getCommonTimeSpan("11:10:12", "11:20:40", "11:00:00", "11:15:10"));
+        assertArrayEquals(new String[]{"11:00:00","11:15:10"}, DateFunctionsHelper.getCommonTimeSpan("10:10:12", "11:20:40", "11:00:00", "11:15:10"));
+        assertArrayEquals(new String[]{}, DateFunctionsHelper.getCommonTimeSpan("10:10:12", "10:20:40", "11:00:00", "11:15:10"));
+
+    }
 }
